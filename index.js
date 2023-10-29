@@ -70,6 +70,11 @@ app.use('/dailyNotification', dailyNotification)
 
 mongoConnect(app)
 
+// 301 Moved Permanently
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, "static", 'error', 'error.html'))
+})
+
 app.get("/", (req, res) => {
   jwt.verify(req.cookies.session, jwtSecret, function(err, decoded) {
     if (err) {
